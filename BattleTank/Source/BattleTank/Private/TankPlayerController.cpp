@@ -5,7 +5,6 @@
 
 void ATankPlayerController::BeginPlay()
 {
-
 	Super::BeginPlay();
 
 	auto ControlledTank = GetControlledTank();
@@ -18,12 +17,29 @@ void ATankPlayerController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController possesing %s."), *(ControlledTank->GetName()));
 	}
+}
 
+void ATankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	AimTowardsCrosshair();
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
 {
-
 	return Cast<ATank>(GetPawn());
+}
 
+/* Start the tank moving the barrel so that a shot would hit where the cros intersects with the world. */
+void ATankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledTank())
+	{
+		return;
+	}
+
+	// Get world location via line trace
+		// it hits something
+			// Tell controlled tank to aim at the point hit
 }
