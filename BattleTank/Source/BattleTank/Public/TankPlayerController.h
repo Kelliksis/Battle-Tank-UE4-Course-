@@ -20,7 +20,10 @@ private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	// Go to method for description
+	// Go to method for description.
 	void AimTowardsCrosshair();
+
+	// Go to method for description.
+	bool GetSightRayHitLocation(FVector &HitLocation) const;
 	
 };
