@@ -25,18 +25,39 @@ void UTankAimingComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+
 }
 
 // Called every frame
-void UTankAimingComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
 }
 
-void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed) 
+void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Firing at %s"), LaunchSpeed);
+	if (!Barrel) { return; }
+
+	FVector OutLaunchVelocity;
+
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+
+	if (UGameplayStatics::SuggestProjectileVelocity(
+		this,
+		OutLaunchVelocity,
+		StartLocation,
+		WorldSpaceAim,
+		LaunchSpeed,
+		false,
+		0,
+		0,
+		ESuggestProjVelocityTraceOption::DoNotTrace)) {// Calculate the Out Launch Velocity.
+
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		auto TankName = GetOwner()->GetName();
+
+		UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *TankName, *AimDirection.ToString());
+	}
 }
