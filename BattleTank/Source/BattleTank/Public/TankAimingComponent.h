@@ -7,12 +7,12 @@
 
 class UTankBarrel;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
@@ -21,7 +21,7 @@ public:
 	// TODO add SetTurretReference
 
 	void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
-	
+
 private:
 	UTankBarrel * Barrel = nullptr;
 
