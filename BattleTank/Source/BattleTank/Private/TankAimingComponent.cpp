@@ -35,6 +35,9 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed)
 		StartLocation,
 		WorldSpaceAim,
 		LaunchSpeed,
+		false, 
+		0, 
+		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace);
 
 	if (bHaveAimSolution) {
@@ -43,7 +46,7 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed)
 		UE_LOG(LogTemp, Warning, TEXT("Aim solve found."));
 		MoveBarrel(AimDirection);
 	}
-	else 
+	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No aim solve found."));
 	}
